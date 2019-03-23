@@ -3,7 +3,7 @@
       <img class="menu" src="../assets/logo.png" />
       <div>
         <img class="logo" src="../assets/logo.png"/>
-        {{category}}
+        <div id="category">{{category}}</div>
       </div>
       <img class="person" src="../assets/logo.png"/>
   </div>
@@ -36,6 +36,10 @@ export default {
         width: 24px;
         height: 24px;
         vertical-align: middle;
+    }
+    #category{
+      width:120px;
+      display: inline-block;
     }
 }
 

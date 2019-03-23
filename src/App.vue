@@ -1,9 +1,25 @@
 <template>
   <div id="app">
+    <Header :category="category" />
     <router-view/>
   </div>
 </template>
+<script>
+// @ is an alias to /src
+import Header from '@/components/Header.vue'
 
+export default {
+  components: {
+    Header
+  },
+  data () {
+    return {
+      // category: localStorage.category
+      category: '拾取你的记忆'
+    }
+  }
+}
+</script>
 <style lang="scss">
 *{
   padding: 0;
