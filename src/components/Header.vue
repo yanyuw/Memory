@@ -1,6 +1,7 @@
 <template>
   <div class="header">
-      <img class="menu" src="../assets/logo.png" />
+      <!-- <img class="menu" src="../assets/logo.png" /> -->
+      <svgIcon name="menu"></svgIcon>
       <div>
         <img class="logo" src="../assets/logo.png"/>
         <div id="category">{{category}}</div>
@@ -10,10 +11,15 @@
 </template>
 
 <script>
+import svgIcon from './SvgIcon.vue'
+
 export default {
   name: 'Header',
   props: {
     category: String
+  },
+  components: {
+    svgIcon
   }
 }
 </script>
@@ -32,10 +38,13 @@ export default {
     display: -webkit-flex;
     justify-content:space-between;
     align-items: center;
+    .svg-icon--menu{
+      margin-left: 20px;
+    }
     img {
-        width: 24px;
-        height: 24px;
-        vertical-align: middle;
+      width: 24px;
+      height: 24px;
+      vertical-align: middle;
     }
     #category{
       width:120px;

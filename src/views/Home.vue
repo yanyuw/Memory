@@ -1,30 +1,56 @@
 <template>
   <div class="home">
-    <!-- <div v-for="note in notes" :key="note.id">
-      <Note title="note.title"/>
-    </div> -->
+    <div class="notes">
+      <Note v-for="note in notes" :key="note.id" :title="note.title" :content="note.content" :tags="note.tags"/>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-// import Note from '@/components/Note.vue'
+import Note from '@/components/Note.vue'
 
 export default {
   name: 'home',
   components: {
-    // Note
+    Note
   },
   data () {
-    notes: [{
-      title: "hhhhh",
-      content: "hhhhhhhhhhhhhhhhh",
-      tags:['1', '2', '3']
-    }]
+    return {
+      notes: [{
+        title: '定风波·苏轼',
+        content: '三月七日，沙湖道中遇雨。雨具先去，同行皆狼狈，余独不觉，已而遂晴，故作此词。莫听穿林打叶声，何妨吟啸且徐行。竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。料峭春风吹酒醒，微冷，山头斜照却相迎。回首向来萧瑟处，归去，也无风雨也无晴。 ',
+        tags: ['语文', '诗词', '背诵', '苏东坡']
+      },{
+        title: '定风波·苏轼',
+        content: '三月七日，沙湖道中遇雨。雨具先去，同行皆狼狈，余独不觉，已而遂晴，故作此词。莫听穿林打叶声，何妨吟啸且徐行。竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。料峭春风吹酒醒，微冷，山头斜照却相迎。回首向来萧瑟处，归去，也无风雨也无晴。 ',
+        tags: ['语文', '诗词', '背诵', '苏东坡']
+      },{
+        title: '定风波·苏轼',
+        content: '三月七日，沙湖道中遇雨。雨具先去，同行皆狼狈，余独不觉，已而遂晴，故作此词。莫听穿林打叶声，何妨吟啸且徐行。竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。料峭春风吹酒醒，微冷，山头斜照却相迎。回首向来萧瑟处，归去，也无风雨也无晴。 ',
+        tags: ['语文', '诗词', '背诵', '苏东坡']
+      },{
+        title: '定风波·苏轼',
+        content: '三月七日，沙湖道中遇雨。雨具先去，同行皆狼狈，余独不觉，已而遂晴，故作此词。莫听穿林打叶声，何妨吟啸且徐行。竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。料峭春风吹酒醒，微冷，山头斜照却相迎。回首向来萧瑟处，归去，也无风雨也无晴。 ',
+        tags: ['语文', '诗词', '背诵', '苏东坡']
+      }]
+    }
   },
   // mounted () {
 
   // }
-  
 }
 </script>
+<style lang="scss" scoped>
+.home{
+  .notes{
+    margin: 0 auto;
+    text-align: left;
+    padding-top: 100px;
+    width: 1010px;
+    min-height: 1000px;
+  }
+}
+
+</style>
+

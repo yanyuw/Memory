@@ -1,13 +1,20 @@
 <template>
   <div class="login">
-      <div class="login-title">{{signUp ? '注册' : '登录'}}</div>
-      <div><input v-model="username" placeholder="用户名"/></div>
-      <div><input type="password" v-model="password" placeholder="密码"/></div>
-      <div v-if="signUp">
+      <div class="login-title">{{ifSignUp ? '注册' : '登录'}}</div>
+      <div>
+        <svgIcon name="username"></svgIcon>
+        <input v-model="username" placeholder="用户名"/>
+      </div>
+      <div>
+        <svgIcon name="password"></svgIcon>
+        <input type="password" v-model="password" placeholder="密码"/>
+      </div>
+      <div v-if="ifSignUp">
+        <svgIcon name="email"></svgIcon>
         <input v-model="email" placeholder="邮箱" />
         <div class="login-button" @click="signUp()">注册</div>
       </div>
-      <div v-if="!signUp">
+      <div v-if="!ifSignUp">
           <div class="login-info">没有账号？快来<span @click="changeSignUp()">注册</span>吧！</div>
           <div class="login-button" @click="signIn()">登录</div>
       </div>
@@ -16,6 +23,8 @@
 </template>
 
 <script>
+import svgIcon from './SvgIcon.vue'
+
 export default {
   name: 'Login',
   data () {
@@ -23,13 +32,17 @@ export default {
       username: '',
       password: '',
       email: '',
-      signUp: false,
+      ifSignUp: false,
       none: false
     }
   },
-  methods:{
+  components: {
+    svgIcon
+  },
+  methods: {
     changeSignUp () {
-      this.signUp = true;
+      this.ifSignUp = true;
+      this.none = false;
     },
     signUp () {
       if(this.username != '' && this.password != '' && this.email != ''){
@@ -82,7 +95,7 @@ export default {
         height: 60px;
     }
     .login-info{
-        margin-top: 40px;
+        margin-top: 36px;
     }
     .login-button{
         background-color: #DDF0ED;
@@ -92,6 +105,10 @@ export default {
         margin: 30px auto 0 auto;
         box-shadow: 0px 2px 15px 0px rgba(0, 0, 0, 0.15);
         cursor: pointer;
+    }
+    .svg-icon{
+      vertical-align: middle;
+      padding-right: 15px;
     }
 }
 
