@@ -17,5 +17,19 @@ module.exports = {
         plainSprite: true
       }
     }
+  },
+  baseUrl: process.env.NODE_ENV === 'production' ? 'https://static.muxixyz.com/to-gather/' : '/',
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://39.108.79.110:3125/',
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          '^/api': '/api'
+        }
+      }
+    }
   }
+  // filenameHashing: false
 }

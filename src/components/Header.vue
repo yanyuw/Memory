@@ -1,17 +1,21 @@
 <template>
-  <div class="header">
-      <!-- <img class="menu" src="../assets/logo.png" /> -->
-      <svgIcon name="menu"></svgIcon>
-      <div>
-        <img class="logo" src="../assets/logo.png"/>
-        <div id="category">{{category}}</div>
-      </div>
-      <img class="person" src="../assets/logo.png"/>
+  <div class="container">
+    <div class="header">
+        <!-- <img class="menu" src="../assets/logo.png" /> -->
+        <svgIcon name="menu" @click="openCategory()"></svgIcon>
+        <div>
+          <img class="logo" src="../assets/logo.png"/>
+          <div id="category">{{category}}</div>
+        </div>
+        <img class="person" src="../assets/logo.png"/>
+    </div>
+    <!-- <Category /> -->
   </div>
 </template>
 
 <script>
 import svgIcon from './SvgIcon.vue'
+// import Category from './Category.vue'
 
 export default {
   name: 'Header',
@@ -19,7 +23,13 @@ export default {
     category: String
   },
   components: {
-    svgIcon
+    svgIcon,
+    // Category
+  },
+  methods: {
+    openCategory () {
+
+    }
   }
 }
 </script>
@@ -38,8 +48,11 @@ export default {
     display: -webkit-flex;
     justify-content:space-between;
     align-items: center;
+    position: fixed;
+    z-index: 99;
     .svg-icon--menu{
       margin-left: 20px;
+      cursor: pointer;
     }
     img {
       width: 24px;

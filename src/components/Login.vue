@@ -44,17 +44,60 @@ export default {
       this.ifSignUp = true;
       this.none = false;
     },
+    getStrLength(str, maxLength) {
+      let strlength;
+      if (str == null){
+        strlength = 0;
+      }
+      if (typeof str !== "string"){
+        str += "";
+      }
+      strlength = str.replace(/[^\x00-\xff]/g,"01").length;
+      return strlength > maxLength ? false : true;
+    },
     signUp () {
-      if(this.username != '' && this.password != '' && this.email != ''){
-          
+      if(this.username !== '' && this.password !== '' && this.email !== ''){
+        const getStrLength = this.$options.methods.getStrLength.bind(this);
+        if(getStrLength(this.username, 30) && getStrLength(this.password, 30) && getStrLength(this.email, 30)){
+          const data = {
+            "username": this.username,
+            "password": this.password,
+            "email": this.email
+          }
+          fetch('/api/signup/', {
+            method: 'POST',
+            headers: {
+              "Content-Type":"application/json"
+            },
+            body: JSON.stringify(data)
+          }).then(res => {
+            if (res.ok){
+              return this.$router.push('/');
+            }
+          })
+        }
       } else {
         this.none = true;
       }
 
     },
     signIn () {
-      if(this.username != '' && this.password != ''){
-      
+      if(this.username !== '' && this.password !== ''){
+        const data = {
+          "username": this.username,
+          "password": this.password
+        }
+        fetch('/api/signin/',{
+          method: 'POST',
+          headers: {
+            "Content-Type":"application/json"
+          },
+          body: JSON.stringify(data)
+        }).then(res => {
+          if (res.ok){
+            return this.$router.push('/');
+          }
+        })
       } else {
         this.none = true;
       }
