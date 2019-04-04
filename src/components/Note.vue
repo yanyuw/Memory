@@ -17,7 +17,10 @@ export default {
   props:{
     title: String,
     content: String,
-    tags: Array
+    tags: {
+      type: Array,
+      default: []
+    }
   },
   components: {
     svgIcon
@@ -55,6 +58,8 @@ export default {
     height: 215px;
     width: 170px;
     margin-top: 16px;
+    font-size: 1em;
+    line-height: 1.5em;
     overflow: hidden;
     position:relative;
     &::after{

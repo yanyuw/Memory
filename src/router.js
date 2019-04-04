@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Landing from './views/Landing.vue'
 
 Vue.use(Router)
 
@@ -9,7 +10,7 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/notes/:tid?',
       name: 'home',
       component: Home
     },
@@ -22,9 +23,9 @@ export default new Router({
       component: () => import(/* webpackChunkName: "detail" */ './views/Detail.vue')
     },
     {
-      path: '/landing',
+      path: '/',
       name: 'landing',
-      component: () => import(/* webpackChunkName: "landing" */ './views/Landing.vue')
+      component: Landing
 
     }
   ]
