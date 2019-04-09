@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import svgIcon from './SvgIcon.vue';
+import svgIcon from './SvgIcon.vue'
 export default {
   name: 'Note',
   props:{

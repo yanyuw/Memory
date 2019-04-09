@@ -29,9 +29,9 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   background: #f2f2f2;
+  overflow: scroll;
 }
 #nav {
   padding: 30px;

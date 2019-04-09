@@ -23,7 +23,7 @@ export default {
     category: String
   },
   components: {
-    svgIcon,
+    svgIcon
     // Category
   },
   methods: {
@@ -49,6 +49,7 @@ export default {
     justify-content:space-between;
     align-items: center;
     position: fixed;
+    top: 0;
     z-index: 99;
     .svg-icon--menu{
       margin-left: 20px;
