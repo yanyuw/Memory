@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header :category="category" />
+    <Header :categoryName="categoryName" />
     <router-view/>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
   data () {
     return {
       // category: localStorage.category
-      category: '拾取你的记忆'
+      categoryName: '拾取你的记忆'
     }
   }
 }
@@ -33,14 +33,9 @@ export default {
   background: #f2f2f2;
   overflow: scroll;
 }
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+a {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
 }
 </style>

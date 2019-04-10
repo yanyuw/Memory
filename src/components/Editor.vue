@@ -1,15 +1,15 @@
 <template>
     <div class="card">  
         <svgIcon name="back" class='back'></svgIcon>
-        <input placeholder=" 笔记标签" class="edit-title" />
-        <button class="edit-button">保存</button>
+        <input placeholder=" 笔记标签" v-model="title" class="edit-title" />
+        <button class="edit-button" @click="save()">保存</button>
         <quill-editor v-model="content"
                     ref="myQuillEditor"
                     :options="editorOption"
                     class='editor'>
         </quill-editor>
         <svgIcon name="tag" class='tag'></svgIcon>
-        <input class="input-tags" placeholder="                请用分号隔开不同的标签" />
+        <input class="input-tags" v-model="tags" placeholder="                请用分号隔开不同的标签" />
     </div>
 </template>
 
@@ -23,6 +23,8 @@ import { quillEditor } from 'vue-quill-editor'
     },
     data () {
       return {
+        title: '',
+        tags: '',
         content: '',
         editorOption: {
           modules: {
@@ -51,6 +53,21 @@ import { quillEditor } from 'vue-quill-editor'
       }
     },
     methods: {
+      save(){
+        this.tags = tags.split(";");
+        fetch('/api/fragments/', {
+          method: 'POST',
+          headers: {
+            "Content-Type":"application/json",
+            Token: cookie.getCookie('userId')
+          },
+          body: JSON.stringify({title,content,tags})
+        }).then(res => {
+            if (res.ok){
+              this.$router.push('/notes');
+            }
+        })
+      }
     },
     computed: {
       // editor() {
@@ -58,9 +75,28 @@ import { quillEditor } from 'vue-quill-editor'
       // }
     },
     mounted() {
+      const { match } = this.props;
+      if (match.path === `/edit`);
+      else {
+        fetch(`/api/fragments/detail/${match.params.tid}`, {
+        method: 'GET',
+        headers: {
+          "Content-Type":"application/json",
+          Token: cookie.getCookie('userId')
+        },
+        }).then(res => {
+          if(res.ok){
+            return res.json()
+          }
+        }).then(res => {
+          this.title = res.title,
+          this.content = res.content,
+          this.tags = res.tags.join(";")
+        })
+      }
     },
     updated(){
-      console.log(this.content);
+      console.log(this.content)
     }
   }
 </script>

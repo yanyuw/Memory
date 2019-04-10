@@ -4,14 +4,21 @@
       <div>
         <svgIcon name="back" class='back'></svgIcon>
         <div class="detail-title">{{title}}</div>
-        <button class="detail-button">编辑</button>
+        <button class="detail-button" @click="toEdit()">编辑</button>
+         <div class='quill-editor'>
+          <div class="ql-container">
+            <div class='ql-editor detail-content' v-html="content"></div>
+         </div>
+        </div>
       </div>
-      <!-- <div class="detail-content">{{content}}</div> -->
-      <div class="ql-container ql-snow">
-        <div class="ql-editor">{{content}}</div>
+      <div class="note-tags">
+        <svgIcon name="tag"></svgIcon>
+        <div class="tags-box">
+          <span v-for="tag in tagsFilter" :key="tag.id" >{{tag}}</span>
+        </div>
       </div>
     </div>
-    <div class="recall">溯</div>
+    <div class="recall" @click="toRecall()">溯</div>
   </div>
 </template>
 
@@ -25,16 +32,53 @@ export default {
   },
   data () {
       return {
-        content: '<p>bosdf</p>'
+        title: '',
+        content: '<p><span style="color: rgb(0,0,0);">sdf</span></p>',
+        tags: [],
+        options: {
+            modules: {
+              toolbar: false
+            },
+            theme: 'snow',
+            readOnly:true,
+        }
       }
   },
   mounted(){
-    // var html=this.content//这个是通过quill获取到的html
-    // var quill= new Quill('css selecotr',{options})  //在想显示的地方新建一个编辑器
-    // quill.root.innerHTML=html  //将编辑器的内容替换成自己获得的内容
-    // quill.enable(false)  //禁用编辑器的编辑功能
+    const { match } = this.props;
+    fetch(`/api/fragments/detail/${match.params.tid}`, {
+      method: 'GET',
+      headers: {
+        "Content-Type":"application/json",
+        Token: cookie.getCookie('userId')
+      },
+    }).then(res => {
+      if(res.ok){
+        return res.json()
+      }
+    }).then(res => {
+      this.title = res.title,
+      this.content = res.content,
+      this.tags = res.tags
+    })
+  },
+  methods:{
+    toEdit(){
+      const { match } = this.props;
+      this.$router.push(`/edit/${match.params.id}`);
+    },
+    toRecall(){
+      const { match } = this.props;
+      this.$router.push(`/recall/${match.params.id}`);
+    }
+  },
+  computed: {
+    tagsFilter: function() {
+      return this.tags.filter((tag, index) => {
+        return index < 3;
+      })
+    }
   }
-
 }
 
 </script>
@@ -80,6 +124,7 @@ export default {
   }
   .detail-content{
     margin: 30px 20px;
+    min-height: 500px;
   }
 }
 .recall{
@@ -94,7 +139,27 @@ export default {
   line-height: 68px;
   float: right;
   margin: -150px 130px 100px 0;
-
 }
+.note-tags{
+    margin-top: 20px;
+    .tags-box{
+      display: inline-block;
+      width: 150px;
+      height: 20px;
+      overflow: hidden;
+    }
+    span{
+      padding: 0 5px;
+      margin: 0 5px;
+      font-size: 14px;
+      border: 1px solid #BBBBBB;
+      color: #a2a2a2;
+    }
+  }
+  .svg-icon{
+    // vertical-align: middle;
+    width: 20px;
+    height: 20px;
+  }
 
 </style>

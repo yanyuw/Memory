@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Landing from './views/Landing.vue'
 
 Vue.use(Router)
 
@@ -9,30 +10,34 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/notes/:tid?',
       name: 'home',
       component: Home
     },
     {
-      path: '/detail',
+      path: '/detail/:tid?',
       name: 'detail',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "detail" */ './views/Detail.vue')
+      component: () => import('./views/Detail.vue')
     },
     {
       path: '/edit',
       name: 'edit',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "detail" */ './components/Editor.vue')
+      component: () => import('./components/Editor.vue')
     },
     {
-      path: '/landing',
+      path: '/edit/:tid?',
+      name: 'edit',
+      component: () => import('./components/Editor.vue')
+    },
+    {
+      path: '/recall',
+      name: 'recall',
+      component: () => import('./components/Recall.vue')
+    },
+    {
+      path: '/',
       name: 'landing',
-      component: () => import(/* webpackChunkName: "landing" */ './views/Landing.vue')
+      component: Landing
 
     }
   ]

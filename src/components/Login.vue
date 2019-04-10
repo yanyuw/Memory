@@ -24,6 +24,7 @@
 
 <script>
 import svgIcon from './SvgIcon.vue'
+import cookie from "../cookie";
 
 export default {
   name: 'Login',
@@ -38,6 +39,11 @@ export default {
   },
   components: {
     svgIcon
+  },
+  mounted(){
+    if(cookie.checkCookie('userId')){
+      this.$router.push('/notes');
+    }
   },
   methods: {
     changeSignUp () {
@@ -72,8 +78,11 @@ export default {
             body: JSON.stringify(data)
           }).then(res => {
             if (res.ok){
-              return this.$router.push('/');
+              return res.json();
             }
+          }).then(res => {
+            cookie.setCookie('userId', res.user_id);
+            this.$router.push('/notes');
           })
         }
       } else {
@@ -95,8 +104,11 @@ export default {
           body: JSON.stringify(data)
         }).then(res => {
           if (res.ok){
-            return this.$router.push('/');
+            return res.json()
           }
+        }).then(res => {
+          cookie.setCookie('userId', res.user_id);
+          this.$router.push('/notes');
         })
       } else {
         this.none = true;
